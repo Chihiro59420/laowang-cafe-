@@ -5,6 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antigravity 破冰成功！</title>
   <style>
+    :root {
+      /* 淺色米白模式 (預設) */
+      --bg-gradient: linear-gradient(135deg, #fdfbf7 0%, #f7f3e9 50%, #f0ece1 100%);
+      --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(253, 250, 245, 0.9));
+      --card-border: rgba(230, 222, 210, 0.85);
+      --card-shadow: 0 20px 45px rgba(180, 160, 140, 0.22),
+                     0 8px 16px rgba(180, 160, 140, 0.12),
+                     inset 0 1px 2px rgba(255, 255, 255, 0.95);
+      --card-shadow-hover: 0 26px 54px rgba(180, 160, 140, 0.32),
+                           0 12px 24px rgba(180, 160, 140, 0.18);
+      --title-gradient: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+      --badge-text: #7c3aed;
+      --badge-bg: rgba(124, 58, 237, 0.08);
+      --badge-border: rgba(124, 58, 237, 0.2);
+      --tag-color: #78716c;
+      --quote-bg: rgba(255, 255, 255, 0.8);
+      --quote-color: #44403c;
+      --quote-border: #ec4899;
+      --theme-btn-bg: rgba(235, 225, 210, 0.6);
+      --theme-btn-color: #57534e;
+      --theme-btn-border: rgba(215, 205, 190, 0.8);
+    }
+
+    body.dark-mode {
+      /* 深色夜間模式 */
+      --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #15182e 50%, #0d1117 100%);
+      --card-bg: linear-gradient(145deg, rgba(26, 30, 48, 0.92), rgba(20, 23, 38, 0.9));
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.6),
+                     0 0 25px rgba(139, 92, 246, 0.18),
+                     inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      --card-shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.75),
+                           0 0 35px rgba(139, 92, 246, 0.28);
+      --title-gradient: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+      --badge-text: #c084fc;
+      --badge-bg: rgba(192, 132, 252, 0.15);
+      --badge-border: rgba(192, 132, 252, 0.3);
+      --tag-color: #94a3b8;
+      --quote-bg: rgba(35, 41, 66, 0.75);
+      --quote-color: #e2e8f0;
+      --quote-border: #f43f5e;
+      --theme-btn-bg: rgba(255, 255, 255, 0.1);
+      --theme-btn-color: #f1f5f9;
+      --theme-btn-border: rgba(255, 255, 255, 0.18);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,32 +63,59 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 50%, #e1f5fe 100%);
+      background: var(--bg-gradient);
       padding: 24px;
       overflow-x: hidden;
+      transition: background 0.5s ease;
     }
 
-    /* 粉彩漸層卡片 */
+    /* 粉彩卡片 */
     .card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.85));
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-radius: 28px;
-      padding: 48px 36px;
-      max-width: 460px;
+      padding: 52px 36px 44px;
+      max-width: 470px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 45px rgba(220, 180, 205, 0.3),
-                  0 8px 16px rgba(180, 200, 240, 0.2),
-                  inset 0 1px 2px rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--card-border);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background 0.5s ease, border-color 0.4s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 26px 52px rgba(220, 180, 205, 0.4),
-                  0 12px 24px rgba(180, 200, 240, 0.25);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    /* 右上角主題切換按鈕 */
+    .theme-toggle-btn {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: var(--theme-btn-bg);
+      border: 1px solid var(--theme-btn-border);
+      color: var(--theme-btn-color);
+      border-radius: 20px;
+      padding: 6px 13px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
     .card-badge {
@@ -50,13 +123,14 @@
       align-items: center;
       gap: 6px;
       padding: 6px 14px;
-      background: rgba(255, 255, 255, 0.8);
+      background: var(--badge-bg);
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #7b61ff;
+      color: var(--badge-text);
       margin-bottom: 18px;
-      box-shadow: 0 2px 8px rgba(123, 97, 255, 0.15);
+      border: 1px solid var(--badge-border);
+      transition: all 0.4s ease;
     }
 
     h1 {
@@ -64,18 +138,19 @@
       font-weight: 800;
       margin-bottom: 28px;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #7b61ff 0%, #ff6b95 100%);
+      background: var(--title-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.3;
+      transition: all 0.4s ease;
     }
 
-    /* 精美發光按鈕 */
+    /* 紫粉漸層發光按鈕 (升級版) */
     .glow-btn {
       position: relative;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+      background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
       background-size: 200% 200%;
-      color: #3b3a58;
+      color: #ffffff;
       font-size: 1.15rem;
       font-weight: 700;
       padding: 16px 42px;
@@ -83,10 +158,12 @@
       border-radius: 50px;
       cursor: pointer;
       outline: none;
-      box-shadow: 0 0 24px rgba(255, 154, 158, 0.6),
-                  0 0 45px rgba(161, 196, 253, 0.45),
-                  0 6px 16px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35),
+                  0 4px 12px rgba(236, 72, 153, 0.25);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.3s ease,
+                  filter 0.3s ease;
       animation: gradientShift 6s ease infinite;
       user-select: none;
     }
@@ -97,23 +174,33 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* hover:scale-105 與 hover:shadow-lg 平滑懸浮放大動畫 */
     .glow-btn:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 0 35px rgba(255, 154, 158, 0.8),
-                  0 0 60px rgba(161, 196, 253, 0.65),
-                  0 10px 22px rgba(0, 0, 0, 0.12);
-      color: #24223d;
+      transform: scale(1.05);
+      box-shadow: 0 16px 36px -4px rgba(139, 92, 246, 0.5),
+                  0 10px 22px -6px rgba(236, 72, 153, 0.45),
+                  0 0 28px rgba(217, 70, 239, 0.4);
+      filter: brightness(1.05);
     }
 
     .glow-btn:active {
-      transform: translateY(1px) scale(0.97);
-      box-shadow: 0 0 18px rgba(255, 154, 158, 0.5),
-                  0 0 30px rgba(161, 196, 253, 0.35);
+      transform: scale(0.98);
+      box-shadow: 0 6px 14px rgba(139, 92, 246, 0.4);
+    }
+
+    /* 代理人迭代說明小字 */
+    .agent-tag {
+      font-size: 0.82rem;
+      color: var(--tag-color);
+      margin-top: 14px;
+      letter-spacing: 0.3px;
+      opacity: 0.88;
+      transition: color 0.4s ease;
     }
 
     /* 結果展示區 */
     .result-container {
-      margin-top: 32px;
+      margin-top: 28px;
       min-height: 90px;
       display: flex;
       flex-direction: column;
@@ -124,14 +211,14 @@
 
     .counter-badge {
       display: inline-block;
-      background: rgba(123, 97, 255, 0.1);
-      color: #6343e8;
+      background: var(--badge-bg);
+      color: var(--badge-text);
       font-size: 0.95rem;
       font-weight: 700;
       padding: 6px 18px;
       border-radius: 20px;
-      border: 1px solid rgba(123, 97, 255, 0.2);
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid var(--badge-border);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, color 0.4s ease;
     }
 
     .counter-badge.bump {
@@ -140,15 +227,15 @@
 
     .quote-box {
       font-size: 1.05rem;
-      color: #4b4868;
+      color: var(--quote-color);
       line-height: 1.6;
       padding: 12px 18px;
-      background: rgba(255, 255, 255, 0.65);
+      background: var(--quote-bg);
       border-radius: 14px;
-      border-left: 3px solid #ff9a9e;
+      border-left: 3px solid var(--quote-border);
       opacity: 0;
       transform: translateY(8px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease, background 0.4s ease, color 0.4s ease;
       width: 100%;
     }
 
@@ -158,18 +245,28 @@
     }
 
     .quote-box.initial {
-      opacity: 0.65;
+      opacity: 0.7;
       transform: translateY(0);
       font-style: italic;
-      color: #7d799d;
     }
   </style>
 </head>
 <body>
   <div class="card">
+    <!-- 主題切換按鈕 -->
+    <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="切換主題模式">
+      <span id="themeIcon">🌙</span>
+      <span id="themeText">深色夜間</span>
+    </button>
+
     <div class="card-badge">✨ Antigravity Milestone</div>
     <h1>Antigravity 破冰成功！</h1>
+    
+    <!-- 紫粉漸層發光按鈕 -->
     <button id="sparkleBtn" class="glow-btn">點我領取能量 🌟</button>
+
+    <!-- 代理人自動迭代生成說明小字 -->
+    <div class="agent-tag">⚡ 由 Antigravity 2.0 桌面代理人自動迭代生成</div>
 
     <div class="result-container">
       <div id="clickCounter" class="counter-badge">已點擊 0 次</div>
@@ -178,6 +275,34 @@
   </div>
 
   <script>
+    // 主題切換功能 (淺色米白 / 深色夜間)
+    const themeBtn = document.getElementById("themeToggleBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.getElementById("themeText");
+
+    function updateThemeUI(isDark) {
+      if (isDark) {
+        document.body.classList.add("dark-mode");
+        themeIcon.textContent = "☀️";
+        themeText.textContent = "淺色米白";
+      } else {
+        document.body.classList.remove("dark-mode");
+        themeIcon.textContent = "🌙";
+        themeText.textContent = "深色夜間";
+      }
+    }
+
+    // 檢查 localStorage 或偏好
+    let isDarkMode = localStorage.getItem("theme") === "dark";
+    updateThemeUI(isDarkMode);
+
+    themeBtn.addEventListener("click", () => {
+      isDarkMode = !isDarkMode;
+      updateThemeUI(isDarkMode);
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    });
+
+    // 點擊計數與隨機鼓勵小語
     const quotes = [
       "保持好奇心，今天也是充滿無限可能的一天！",
       "一步一腳印，每個微小的努力都在累積未來的光芒！",
